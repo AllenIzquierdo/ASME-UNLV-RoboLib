@@ -49,7 +49,7 @@ byte NetworkTable::getByte(byte key)
 	return this->byteMap[key];
 }
 
-void NetworkTable::flushBytes(PacketSerial sender)
+void NetworkTable::flushBytes(PacketSerial* sender)
 {
 	packetBuffer[0] = 3 + byteMapSize;
 	packetBuffer[1] = 0;
@@ -58,7 +58,7 @@ void NetworkTable::flushBytes(PacketSerial sender)
 	{
 		packetBuffer[i+3] = byteMap[i];
 	}
-	sender.send(packetBuffer, packetBuffer[0]);
+	sender->send(packetBuffer, packetBuffer[0]);
 }
 
 void NetworkTable::helloWorld(PacketSerial* sender, byte value)

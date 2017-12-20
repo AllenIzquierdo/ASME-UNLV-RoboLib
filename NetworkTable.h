@@ -17,7 +17,7 @@ class NetworkTable {
 		void processPacketFromSender(const PacketSerial& sender, const uint8_t* buffer, size_t size);
 		void networkService();
 		// Network Packet Commands
-		void flushBytes(PacketSerial sender);
+		void flushBytes(PacketSerial* sender);
 		void helloWorld(PacketSerial* sender, const byte value);
 	private:
 		byte* byteMap;
