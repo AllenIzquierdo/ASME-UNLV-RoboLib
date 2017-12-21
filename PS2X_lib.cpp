@@ -77,11 +77,13 @@ unsigned char PS2X::_gamepad_shiftinout (char byte) {
 
 /****************************************************************************************/
 void PS2X::read_gamepad() {
+   if(networked) return;
    read_gamepad(false, 0x00);
 }
 
 /****************************************************************************************/
 boolean PS2X::read_gamepad(boolean motor1, byte motor2) {
+   if(networked) return;
    double temp = millis() - last_read;
 
    if (temp > 1500) //waited to long
@@ -157,6 +159,12 @@ boolean PS2X::read_gamepad(boolean motor1, byte motor2) {
 #endif
    last_read = millis();
    return ((PS2data[1] & 0xf0) == 0x70);  // 1 = OK = analog mode - 0 = NOK
+}
+
+/****************************************************************************************/
+void PS2X::config_gamepad()
+{
+	networked = true;
 }
 
 /****************************************************************************************/

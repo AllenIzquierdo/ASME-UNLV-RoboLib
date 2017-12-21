@@ -175,6 +175,7 @@ class PS2X {
     void read_gamepad();
     boolean  read_gamepad(boolean, byte);
     byte readType();
+    void config_gamepad();
     byte config_gamepad(uint8_t, uint8_t, uint8_t, uint8_t);
     byte config_gamepad(uint8_t, uint8_t, uint8_t, uint8_t, bool, bool);
     void enableRumble();
@@ -191,6 +192,7 @@ class PS2X {
     inline void ATT_CLR(void);
     inline bool DAT_CHK(void);
     
+    bool networked = false;
     unsigned char _gamepad_shiftinout (char);
     unsigned char PS2data[21];
     void sendCommandString(byte*, byte);
