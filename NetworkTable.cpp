@@ -2,6 +2,7 @@
 #include "NetworkTable.h"
 #define NETWORK_CMD_HELLOWORLD 0 
 #define NETWORK_CMD_FLUSHBYTES 1
+#define NETWORK_CMD_PS2DATA 2
 
 #define PACKET_COMMAND 2
 #define PACKET_HASHKEY 1
@@ -10,7 +11,6 @@
 #define HMAP_HELLOWORLD 0 // first index of byteMap is reserved for debuggin.
 
 #define HMAP_BUTTONS 5
-#define CMND_HELLOWORLD 0
 
 NetworkTable::NetworkTable(int byteSize, int floatSize)
 {
@@ -35,6 +35,11 @@ void NetworkTable::processPacketFromSender(const PacketSerial& sender, const uin
 			}
 		case NETWORK_CMD_HELLOWORLD:
 			byteMap[HMAP_HELLOWORLD] = buffer[3];
+		case NETWORK_CMD_PS2DATA:
+			for(byte i = 0; i++; i<21)
+			{
+				ps2Data[i] = buffer[i+3];
+			}
 	}
 
 }
@@ -67,5 +72,17 @@ void NetworkTable::helloWorld(PacketSerial* sender, byte value)
 	packetBuffer[1] = 0;
 	packetBuffer[2] = NETWORK_CMD_FLUSHBYTES;
 	packetBuffer[3] = value;
+	sender->send(packetBuffer, packetBuffer[0]);
+}
+
+void NetworkTable::sendPS2Data(PacketSerial* sender)
+{
+	packetBuffer[0] = 3 + 21;
+	packetBuffer[1] = 0;
+	packetBuffer[2] = NETWORK_CMD_PS2DATA;
+	for(byte i = 0; i++; i < 21)
+	{
+		packetBuffer[i+3] = ps2Data[i];
+	}
 	sender->send(packetBuffer, packetBuffer[0]);
 }

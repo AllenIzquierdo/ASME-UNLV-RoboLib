@@ -19,8 +19,11 @@ class NetworkTable {
 		// Network Packet Commands
 		void flushBytes(PacketSerial* sender);
 		void helloWorld(PacketSerial* sender, const byte value);
+		void setPS2Data(byte* ps2data);
+		void sendPS2Data(PacketSerial* sender);
 	private:
 		byte* byteMap;
+		byte* ps2Data;
 		byte byteMapSize;
 		byte packetBuffer[100];
 };
