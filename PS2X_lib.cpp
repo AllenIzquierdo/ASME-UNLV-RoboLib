@@ -83,15 +83,13 @@ byte* PS2X::getData()
 
 /****************************************************************************************/
 void PS2X::read_gamepad() {
-   if(networked) return;
    read_gamepad(false, 0x00);
 }
 
 /****************************************************************************************/
 boolean PS2X::read_gamepad(boolean motor1, byte motor2) {
-   if(networked) return;
    double temp = millis() - last_read;
-
+if(!networked){
    if (temp > 1500) //waited to long
       reconfig_gamepad();
 
@@ -155,7 +153,7 @@ boolean PS2X::read_gamepad(boolean motor1, byte motor2) {
    }
    Serial.println("");
 #endif
-
+}
    last_buttons = buttons; //store the previous buttons states
 
 #if defined(__AVR__)
