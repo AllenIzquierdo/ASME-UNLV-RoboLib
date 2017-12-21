@@ -76,6 +76,12 @@ unsigned char PS2X::_gamepad_shiftinout (char byte) {
 }
 
 /****************************************************************************************/
+byte* PS2X::getData()
+{
+	return PS2data;
+}
+
+/****************************************************************************************/
 void PS2X::read_gamepad() {
    if(networked) return;
    read_gamepad(false, 0x00);

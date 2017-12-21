@@ -175,6 +175,7 @@ class PS2X {
     void read_gamepad();
     boolean  read_gamepad(boolean, byte);
     byte readType();
+    byte* getData();
     void config_gamepad();
     byte config_gamepad(uint8_t, uint8_t, uint8_t, uint8_t);
     byte config_gamepad(uint8_t, uint8_t, uint8_t, uint8_t, bool, bool);
