@@ -38,8 +38,12 @@ void NetworkTable::processPacketFromSender(const PacketSerial& sender, const uin
 		case NETWORK_CMD_PS2DATA:
 			for(byte i = 0; i < 21; i++)
 			{
-				ps2Data[i] = buffer[i+3];
+				ps2x->PS2data[i] = buffer[i+3];
+				//ps2x->PS2data[i] = 255;
+				//Serial.println(buffer[i+3], HEX);
 			}
+			//Serial.println();
+			ps2x->read_gamepad();
 	}
 
 }
