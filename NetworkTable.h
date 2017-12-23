@@ -8,6 +8,7 @@
 //	});
 #include <Arduino.h>
 #include <PacketSerial.h>
+#include "PS2X_lib.h"
 
 class NetworkTable {
 	public:
@@ -19,11 +20,11 @@ class NetworkTable {
 		// Network Packet Commands
 		void flushBytes(PacketSerial* sender);
 		void helloWorld(PacketSerial* sender, const byte value);
-		void setPS2Data(byte* ps2data);
+		void setPS2(PS2X* ps2X);
 		void sendPS2Data(PacketSerial* sender);
 	private:
 		byte* byteMap;
-		byte* ps2Data;
+		PS2X* ps2x;
 		byte byteMapSize;
 		byte packetBuffer[100];
 };
