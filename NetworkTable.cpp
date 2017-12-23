@@ -70,7 +70,7 @@ void NetworkTable::helloWorld(PacketSerial* sender, byte value)
 {
 	packetBuffer[0] = 3 + 1;
 	packetBuffer[1] = 0;
-	packetBuffer[2] = NETWORK_CMD_FLUSHBYTES;
+	packetBuffer[2] = NETWORK_CMD_HELLOWORLD;
 	packetBuffer[3] = value;
 	sender->send(packetBuffer, packetBuffer[0]);
 }
