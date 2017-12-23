@@ -36,7 +36,7 @@ void NetworkTable::processPacketFromSender(const PacketSerial& sender, const uin
 		case NETWORK_CMD_HELLOWORLD:
 			byteMap[HMAP_HELLOWORLD] = buffer[3];
 		case NETWORK_CMD_PS2DATA:
-			for(byte i = 0; i++; i<21)
+			for(byte i = 0; i < 21; i++)
 			{
 				ps2Data[i] = buffer[i+3];
 			}
@@ -80,7 +80,7 @@ void NetworkTable::sendPS2Data(PacketSerial* sender)
 	packetBuffer[0] = 3 + 21;
 	packetBuffer[1] = 0;
 	packetBuffer[2] = NETWORK_CMD_PS2DATA;
-	for(byte i = 0; i++; i < 21)
+	for(byte i = 0; i<21; i++)
 	{
 		packetBuffer[i+3] = ps2Data[i];
 	}
