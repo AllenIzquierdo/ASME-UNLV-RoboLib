@@ -83,7 +83,7 @@ void PS2X::read_gamepad() {
 /****************************************************************************************/
 boolean PS2X::read_gamepad(boolean motor1, byte motor2) {
    double temp = millis() - last_read;
-if(!networked){
+if(networked == false){
    if (temp > 1500) //waited to long
       reconfig_gamepad();
 
