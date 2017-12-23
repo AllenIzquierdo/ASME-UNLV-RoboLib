@@ -171,6 +171,12 @@ byte PS2X::config_gamepad(uint8_t clk, uint8_t cmd, uint8_t att, uint8_t dat) {
 }
 
 /****************************************************************************************/
+unsigned long PS2X::getLastRead()
+{
+	return last_read;
+}
+
+/****************************************************************************************/
 byte PS2X::config_gamepad(uint8_t clk, uint8_t cmd, uint8_t att, uint8_t dat, bool pressures, bool rumble) {
 
   byte temp[sizeof(type_read)];
