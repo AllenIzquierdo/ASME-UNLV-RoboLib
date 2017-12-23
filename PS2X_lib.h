@@ -183,6 +183,7 @@ class PS2X {
     byte Analog(byte);
     void reconfig_gamepad();
     unsigned long getLastRead();
+    unsigned char PS2data[21];
 
   private:
     inline void CLK_SET(void);
@@ -195,7 +196,6 @@ class PS2X {
     
     bool networked = false;
     unsigned char _gamepad_shiftinout (char);
-    unsigned char PS2data[21];
     void sendCommandString(byte*, byte);
     unsigned char i;
     unsigned int last_buttons;
