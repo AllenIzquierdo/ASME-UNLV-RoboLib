@@ -39,7 +39,6 @@ void NetworkTable::processPacketFromSender(const PacketSerial& sender, const uin
 			for(byte i = 0; i < 21; i++)
 			{
 				ps2x->PS2data[i] = buffer[i+3];
-				//ps2x->PS2data[i] = 255;
 				//Serial.println(buffer[i+3], HEX);
 			}
 			//Serial.println();
