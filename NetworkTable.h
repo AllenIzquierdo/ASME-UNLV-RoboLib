@@ -12,6 +12,7 @@
 
 class NetworkTable {
 	public:
+		unsigned long getLastPS2PacketTime();
 		NetworkTable(int byteSize, int floatSize);
 		byte getByte(byte key);
 		void setByte(byte key, byte value);
@@ -23,6 +24,7 @@ class NetworkTable {
 		void setPS2(PS2X* ps2X);
 		void sendPS2Data(PacketSerial* sender);
 	private:
+		unsigned long time_lastps2packet;
 		byte* byteMap;
 		PS2X* ps2x;
 		byte byteMapSize;

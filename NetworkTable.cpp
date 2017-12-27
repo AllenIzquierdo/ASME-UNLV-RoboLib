@@ -43,6 +43,8 @@ void NetworkTable::processPacketFromSender(const PacketSerial& sender, const uin
 			}
 			//Serial.println();
 			ps2x->read_gamepad();
+			time_lastps2packet = millis();
+
 	}
 
 }
@@ -50,6 +52,11 @@ void NetworkTable::processPacketFromSender(const PacketSerial& sender, const uin
 void NetworkTable::setByte(byte key, byte value)
 {
 	this->byteMap[key] = value;
+}
+
+unsigned long NetworkTable::getLastPS2PacketTime()
+{
+	return millis() - time_lastps2packet;
 }
 
 byte NetworkTable::getByte(byte key)
