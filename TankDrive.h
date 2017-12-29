@@ -1,0 +1,25 @@
+
+#ifndef TANKDRIVE_H
+#define TANKDRIVE_H
+#include <Motor.h>
+#include <PS2X_lib.h>
+
+
+class TankDrive {
+	public:
+		TankDrive(const Motor* leftMotor1, const Motor* leftMotor2, const Motor* rightMotor1, const Motor* rightMotor2);
+		void drive(PS2X ps2x);
+		void drive(float left, float right);
+		void reverseLeftMotors(bool enable);
+		void reverseRightMotors(bool enable);
+	protected:
+	private:
+		bool reverseLeft;
+		bool reverseRight;
+		Motor* leftMotor1;
+		Motor* leftMotor2;
+		Motor* rightMotor1;
+		Motor* rightMotor2;
+};
+
+#endif
