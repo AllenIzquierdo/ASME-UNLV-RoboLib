@@ -76,6 +76,18 @@ unsigned char PS2X::_gamepad_shiftinout (char byte) {
 }
 
 /****************************************************************************************/
+float PS2X::JoyStick(byte button)
+{
+	float output =  float(this->Analog(button)) / (255/2) - 1;
+	if( abs(output) < this->dead_zone)
+	{
+		return 0;
+	} else {
+		return output;
+	}
+}
+
+/****************************************************************************************/
 void PS2X::read_gamepad() {
    read_gamepad(false, 0x00);
 }
