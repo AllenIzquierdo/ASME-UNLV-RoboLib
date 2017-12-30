@@ -14,8 +14,6 @@ unsigned char TalonSR::getChannel()
 void TalonSR::setPower(const float power)
 {
 	Motor::setPower(power);
-	this->output = uint16_t((getPower() + 1) * 2000 )/ 2 + 6000;
-	this->miniMaestro->setTarget(this->pwm_channel, this->output);
+	this->output = uint16_t((getPower() + 1) * 4000 )/ 2 + 4000;
+	this->miniMaestro->queTarget(this->pwm_channel, this->output);
 }
-
-
