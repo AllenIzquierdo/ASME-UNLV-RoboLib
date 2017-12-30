@@ -1,6 +1,6 @@
 #include <TalonSR.h>
 
-TalonSR::TalonSR(const MiniMaestro miniMaestro, const unsigned char pwm_channel) : Motor(MOTOR_ID_TALONSR)
+TalonSR::TalonSR(const MiniMaestroService &miniMaestro, const unsigned char pwm_channel) : Motor(MOTOR_ID_TALONSR)
 {
 	this->pwm_channel = pwm_channel;
 	this->miniMaestro = &miniMaestro;

@@ -3,11 +3,11 @@
 #include <Motor.h>
 #include <Arduino.h>
 #include <PololuMaestro.h>
-
+#include <MiniMaestroService.h>
 #define MOTOR_ID_TALONSR 0
 class TalonSR: public Motor {
 	public:
-		TalonSR(const MiniMaestro miniMaestro, const unsigned char pwm_channel);
+		TalonSR(const MiniMaestroService &miniMaestro, const unsigned char pwm_channel);
 
 		// Setters and Getters
 		unsigned char getChannel();
@@ -18,7 +18,7 @@ class TalonSR: public Motor {
 	private:
 		unsigned int output;
 		unsigned char pwm_channel;
-		MiniMaestro* miniMaestro;
+		MiniMaestroService* miniMaestro;
 };
 
 #endif
