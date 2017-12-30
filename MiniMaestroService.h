@@ -20,7 +20,7 @@ class MiniMaestroService: public MiniMaestro {
 		uint16_t values[18];
 		uint8_t highestOccupiedChannel;
 		uint16_t period = 50;
-		uint16_t last_update = 50;
+		uint16_t last_update = 0;
 
 };
 
