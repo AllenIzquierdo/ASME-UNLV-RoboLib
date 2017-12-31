@@ -13,6 +13,7 @@ class PololuG2: public Motor {
 		void setPower(const float power);
 	protected:
 	private:
+		byte output;
 		unsigned int maestroOutput;
 		bool maestroService;
 		MiniMaestroService* miniMaestroService; 
