@@ -8,7 +8,7 @@
  * \param rightMotor1 Speed controller for right motor.
  * \param rightMotor1 Speed controller for right motor.
  */
-TankDrive::TankDrive(const Motor* leftMotor1, const Motor* leftMotor2, const Motor* rightMotor1, const Motor* rightMotor2)
+TankDrive::TankDrive(const Motor &leftMotor1, const Motor &leftMotor2, const Motor &rightMotor1, const Motor &rightMotor2)
 {
 	this->leftMotor1 = &leftMotor1;
 	this->leftMotor2 = &leftMotor2;
