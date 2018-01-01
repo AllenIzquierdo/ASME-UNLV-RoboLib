@@ -20,6 +20,7 @@ void Motor::setPower(const float power)
 
 /** \brief Returns target output of motor.
  * \return Power of motor, between -1 and 1.
+ */
 float Motor::getPower()
 {
 	return this->power;
