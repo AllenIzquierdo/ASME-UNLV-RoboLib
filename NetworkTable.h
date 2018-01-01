@@ -10,6 +10,12 @@
 #include <PacketSerial.h>
 #include "PS2X_lib.h"
 
+/** \brief Handles data from wixel's radio.
+ *
+ * NetworkTable is used to process decoded packets from driver station.
+ * NetworkTable must be binded to PacketSerial object by Lambda expressions. View examples to see how it's done.
+ * \warning Do not send multiple packets concurrently. It doesn't work (yet)!
+ */
 class NetworkTable {
 	public:
 		unsigned long getLastPS2PacketTime();
@@ -21,7 +27,7 @@ class NetworkTable {
 		// Network Packet Commands
 		void flushBytes(PacketSerial* sender);
 		void helloWorld(PacketSerial* sender, const byte value);
-		void setPS2(PS2X* ps2X);
+		void setPS2(PS2X &ps2X);
 		void sendPS2Data(PacketSerial* sender);
 	private:
 		unsigned long time_lastps2packet;

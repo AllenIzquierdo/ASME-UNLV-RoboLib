@@ -3,6 +3,8 @@
 #include <Arduino.h>
 
 
+/** \brief Abstract Class used as base class for speed controllers.
+ */
 class Motor {
 	public:
 		Motor(const unsigned char id);

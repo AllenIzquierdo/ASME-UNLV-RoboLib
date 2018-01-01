@@ -164,6 +164,8 @@ GNU General Public License for more details.
 #define CHK(x,y) (x & (1<<y))
 #define TOG(x,y) (x^=(1<<y))
 
+/** \brief Modifed PS2X library.
+ */
 class PS2X {
   public:
     boolean Button(uint16_t);                //will be TRUE if button is being pressed
