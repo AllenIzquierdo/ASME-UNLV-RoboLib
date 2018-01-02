@@ -8,7 +8,7 @@
  *
  * Got two options in controlling PololuG2 motors.
  * 1. PWM analogWrite with arduino.
- * 2. Maestro with 333Hz update rate.
+ * 2. Maestro with 250Hz update rate.
  *
  * When using option 2, use Maestro Control Center to set enable and direction channels to output, and PWM pin as a servo.
  */
