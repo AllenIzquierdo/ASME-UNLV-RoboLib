@@ -52,13 +52,7 @@ void PololuG2::setPower(const float power)
 			miniMaestroService->queTarget(dir_pin, 8000);
 		}
 
-		// abs() don't work on floats?
-		if(getPower() < 0)
-		{
-			this->maestroOutput = uint16_t(-getPower() * 12000);
-		} else {
-			this->maestroOutput = uint16_t(getPower() * 12000);
-		}
+		this->maestroOutput = uint16_t(abs(getPower())*16000);
 		miniMaestroService->queTarget(this->pwm_pin, maestroOutput);
 		return; 
 	}
