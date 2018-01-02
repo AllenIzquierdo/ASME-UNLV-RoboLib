@@ -61,9 +61,11 @@ void PololuG2::setPower(const float power)
 	if(this->getPower() < 0)
 	{
 		digitalWrite(dir_pin, LOW);
+		this->output = byte(-getPower()*255);
 	} else {
 		digitalWrite(dir_pin, HIGH);
+		this->output = byte(getPower()*255);
 	}
-	this->output = byte(abs(this->getPower()) * 255);
+
 	analogWrite(this->pwm_pin, this->output);
 }
