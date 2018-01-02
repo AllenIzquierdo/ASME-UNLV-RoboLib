@@ -5,6 +5,7 @@
 /** \brief Controlls HS485 Servos
  *
  * Used to control HS485 servos with the Maestro.
+ * \warning Assure that maestro is pulsing this servo at 50Hz. Pulsing the servo at values above 50Hz can damage the servo.
  */
 class HS485{
 	public:
