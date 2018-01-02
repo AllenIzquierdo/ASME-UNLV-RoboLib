@@ -22,6 +22,7 @@ PololuG2::PololuG2(const byte enable_pin, const byte pwm_pin, const byte dir_pin
 /** \brief Controll PololuG2 motor with MiniMaestroService.
  *
  * This controll method will take up three channels on Maestro.
+ * \warning Low MiniMaestroService update periods can make it seem like the speed controller is laggy.
  * \param miniMaestroService MaestroService used to control the device.
  * \param enable_channel Output channel that connects to PololuG2's sleep pin.
  * \param pwm_channel Servo channel that connects to PololuG2's PWM pin.

@@ -9,12 +9,13 @@
 /** \brief Handles Maestro communication.
  * 
  * Extended from MiniMaestro. Used in conjunction with classes that control devices off MiniMaestro, e.g., TalonSR.
+ * View examples to see how to use this class.
  * How to use:
  * 1. Create a serial object (hardware or software) that is connected to Maestro's RX/TX pins.
  * 2. Construct MiniMaestroService with the serial object.
  * 3. Que values to maestro with queTarget().
  * 4. Call service() in Arduino's loop().
- * View example to see how to use this class.
+ * \warning Please be carefull when configuring maestro. Some settings can damage the Maestro and devices controlled by it.
  */
 class MiniMaestroService: public MiniMaestro {
 	public:
