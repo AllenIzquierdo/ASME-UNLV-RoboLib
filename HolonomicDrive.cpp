@@ -52,14 +52,23 @@ void HolonomicDrive::drive(const float dir, const float thrust, const float turn
 
 	W2thrust = W2thrust - turnfactor;
 	W4thrust = W2thrust + turnfactor;
+
 	smartConstrain(W1thrust, W3thrust);
 	smartConstrain(W2thrust, W4thrust);
+
 	motor1->setPower(W1thrust);
 	motor2->setPower(W2thrust);
 	motor3->setPower(W3thrust);
 	motor4->setPower(W4thrust);
 }
 
+
+/** \brief Constrain function for motor output
+ * 
+ * Constrains floats between 1 & -1, will adjust other values to ensure resultant force vector is pointing in proper direction.
+ * \param val1 Float Input 1
+ * \param val2 Float Input 2
+ */
 void HolonomicDrive::smartConstrain(float &val1, float &val2)
 {
 

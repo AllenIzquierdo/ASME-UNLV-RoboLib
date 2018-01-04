@@ -22,6 +22,7 @@ class HolonomicDrive{
 		void smartConstraint(float &val1, float &val2);
 
 	private:
+		// Holders for motors
 		Motor* motor1;
 		Motor* motor2;
 		Motor* motor3;
