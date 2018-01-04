@@ -19,7 +19,7 @@ class HolonomicDrive{
 		void addTrimMotor(const unsigned char motor, float value);
 		void reverseMotor(const unsigned char motor, const bool value);
 	protected:
-		void smartConstraint(float &val1, float &val2);
+		void smartConstrain(float &val1, float &val2);
 
 	private:
 		// Holders for motors
