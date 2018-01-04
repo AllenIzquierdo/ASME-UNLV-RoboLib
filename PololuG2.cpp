@@ -53,19 +53,13 @@ void PololuG2::setPower(const float power)
 			miniMaestroService->queTarget(dir_pin, 8000);
 		}
 
-		this->maestroOutput = uint16_t(abs(getPower())*16000);
+		this->maestroOutput = uint16_t(fabs(getPower())*16000);
 		miniMaestroService->queTarget(this->pwm_pin, maestroOutput);
 		return; 
 	}
 
-	if(this->getPower() < 0)
-	{
-		digitalWrite(dir_pin, LOW);
-		this->output = byte(-getPower()*255);
-	} else {
-		digitalWrite(dir_pin, HIGH);
-		this->output = byte(getPower()*255);
-	}
+	digitalWrite(dir_pin, LOW);
+	this->output = byte(fabs(getPower()) * 255);
 
 	analogWrite(this->pwm_pin, this->output);
 }

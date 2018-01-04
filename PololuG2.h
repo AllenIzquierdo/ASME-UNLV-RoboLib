@@ -3,6 +3,7 @@
 #include <Arduino.h>
 #include <Motor.h>
 #include <MiniMaestroService.h>
+#include <math.h>
 
 /** \brief Controlls PololuG2 motor drivers.
  *
