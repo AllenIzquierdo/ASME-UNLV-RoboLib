@@ -20,14 +20,14 @@ HolonomicDrive::HolonomicDrive(const Motor & motor1, const Motor & motor2, const
  * \param thrust How much power should be given to the motors. Input value range is -1 to 1.
  * \param turn Turning factor. Input range is -1 to 1.
  */
-void HolonomicDrive::drive(const float dir, const float thrust, const float turn)
+void HolonomicDrive::drive(const float dir, const float thrust, const float turnfactor)
 {
 	// Thrust scalers
 	float W1thrust = Vec2::dot(Vec2(-.707, .707), Vec2(cos(dir), sin(dir)));
 	float W2thrust = Vec2::dot(Vec2(.707, .707), Vec2(cos(dir), sin(dir)));
 	// Absolute Value Holders
-	W1abs = fabs(W1thrust);
-	W2abs = fabs(W2thrust);
+	float W1abs = fabs(W1thrust);
+	float W2abs = fabs(W2thrust);
 	
 	// Scale to full thrust
 	if(W1abs > W2abs)
@@ -41,7 +41,7 @@ void HolonomicDrive::drive(const float dir, const float thrust, const float turn
 
 	// Scale to thrust
 	W1thrust = W1thrust * thrust;
-	float W3thrust = W1thrust
+	float W3thrust = W1thrust;
 
 
 	W2thrust = W2thrust * thrust;
