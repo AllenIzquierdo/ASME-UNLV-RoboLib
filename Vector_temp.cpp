@@ -37,7 +37,7 @@ static float Vec2::magnitude(Vec2 value)
  */
 static float Vec2::angle(Vec2 value)
 {
-	return atan2(value.components[0], value.components[1]);
+	return atan2(value.components[1], value.components[0]);
 }
 
 /** \brief Calculate angle of a vector, in degrees.
