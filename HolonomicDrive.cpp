@@ -30,13 +30,14 @@ void HolonomicDrive::drive(const float dir, const float thrust, const float turn
 	float W2abs = fabs(W2thrust);
 	
 	// Scale to full thrust
+	// TODO: swap Redundant Multipliers with negate logic
 	if(W1abs > W2abs)
 	{
-		W1thrust = 1;
+		W1thrust = W1thrust/W1abs;
 		W2thrust = W2thrust/W1abs;
 	} else {
 		W1thrust = W1thrust/W2abs;
-		W2thrust = 1;
+		W2thrust = W2thrust/W2abs;
 	}
 
 	// Scale to thrust
