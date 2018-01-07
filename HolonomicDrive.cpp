@@ -52,7 +52,7 @@ void HolonomicDrive::drive(const float dir, const float thrust, const float turn
 	W3thrust = W3thrust - turnfactor;
 
 	W2thrust = W2thrust - turnfactor;
-	W4thrust = W2thrust + turnfactor;
+	W4thrust = W4thrust + turnfactor;
 
 	smartConstrain(W1thrust, W3thrust);
 	smartConstrain(W2thrust, W4thrust);
