@@ -57,10 +57,35 @@ void HolonomicDrive::drive(const float dir, const float thrust, const float turn
 	smartConstrain(W1thrust, W3thrust);
 	smartConstrain(W2thrust, W4thrust);
 
-	motor1->setPower(W1thrust);
-	motor2->setPower(W2thrust);
-	motor3->setPower(W3thrust);
-	motor4->setPower(W4thrust);
+	// Might be best just to use inverse multipliers instead of logic statements.
+	if(reverse1)
+	{
+		motor1->setPower(-W1thrust);
+	} else {
+		motor1->setPower(W1thrust);
+	}
+
+	if(reverse2)
+	{
+		motor2->setPower(-W2thrust);
+	} else {
+		motor2->setPower(W2thrust);
+	}
+
+	if(reverse3)
+	{
+		motor3->setPower(-W3thrust);
+	} else {
+		motor3->setPower(W3thrust);
+	}
+
+	if(reverse4)
+	{
+		motor4->setPower(-W4thrust);
+	} else {
+		motor4->setPower(W4thrust);
+	}
+
 }
 
 
@@ -98,4 +123,47 @@ void HolonomicDrive::smartConstrain(float &val1, float &val2)
 		val2 = -1;
 		val1 = val1 - temp;
 	}
+}
+
+/** \brief Reverse Specific Motor
+ *
+ * Reverse a specific motor's forward direction. This function is used to reverse motor direction without rewiring.
+ * \param motor Which motor to reverse.
+ * \param motor True = forward direction is reversed. False = normal operation.
+ */
+void HolonomicDrive::reverseMotor(const unsigned char motor, const bool value)
+{
+	switch(motor)
+	{
+		case 1:
+			reverse1 = value;
+		case 2:
+			reverse2 = value;
+		case 3:
+			reverse3 = value;
+		case 4:
+			reverse4 = value;
+	}
+}
+
+/** \brief Reverse Left Motor's forward direction.
+ * 
+ * Reverses motor's forward direction. Use this function if need to reverse the forward direction without rewiring.
+ * \param value True = reverse. False = normal operation.
+ */
+void HolonomicDrive::reverseLeftMotors(const bool value)
+{
+	reverse2 = value;
+	reverse3 = value;
+}
+
+/** \brief Reverse Right Motor's forward direction.
+ *
+ * See reverseLeftMotor();
+ * \param value True = reverse. False = normal operation.
+ */
+void HolonomicDrive::reverseRightMotors(const bool value)
+{
+	reverse1 = value;
+	reverse4 = value;
 }

@@ -18,6 +18,8 @@ class HolonomicDrive{
 		void setTrimMotor(const unsigned char motor, float value);
 		void addTrimMotor(const unsigned char motor, float value);
 		void reverseMotor(const unsigned char motor, const bool value);
+		void reverseLeftMotors(const bool value);
+		void reverseRightMotors(const bool value);
 	protected:
 		void smartConstrain(float &val1, float &val2);
 
@@ -27,5 +29,9 @@ class HolonomicDrive{
 		Motor* motor2;
 		Motor* motor3;
 		Motor* motor4;
+		bool reverse1;
+		bool reverse2;
+		bool reverse3;
+		bool reverse4;
 };
 #endif
