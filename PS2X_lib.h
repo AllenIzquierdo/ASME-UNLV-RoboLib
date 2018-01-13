@@ -203,7 +203,7 @@ class PS2X {
     unsigned char i;
     unsigned int last_buttons;
     unsigned int buttons;
-    float dead_zone = 0.02;
+    float dead_zone = 0.04;
 	
     #ifdef __AVR__
       uint8_t maskToBitNum(uint8_t);
