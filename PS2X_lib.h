@@ -92,12 +92,12 @@ GNU General Public License for more details.
 #ifdef __AVR__
   // AVR
   #include <avr/io.h>
-  #define CTRL_CLK        4
+  #define CTRL_CLK        20
   #define CTRL_BYTE_DELAY 3
 #else
   // Pic32...
   #include <pins_arduino.h>
-  #define CTRL_CLK        5
+  #define CTRL_CLK        20
   #define CTRL_CLK_HIGH   5
   #define CTRL_BYTE_DELAY 4
 #endif 
