@@ -2,6 +2,11 @@
 #include <PololuG2.h>
 #define MOTOR_ID_POLOLUG2 1
 
+float PololuG2::last_update;
+unsigned char PololuG2::motor_count;
+PololuG2* PololuG2::motors[10];
+
+
 /** \brief Controll PololuG2 motor with Arduino pins.
  *
  * \param enable_pin Digital pin that connects to PololuG2's sleep pin.
