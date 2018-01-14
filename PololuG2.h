@@ -37,16 +37,16 @@ class PololuG2: public Motor {
 		byte output;
 		unsigned int maestroOutput;
 		bool maestroService;
-		MiniMaestroService* miniMaestroService; 
+		MiniMaestroService* miniMaestroService;
 
 		// Linear Ramping
-		void addLinearRampingMotor(PololuG2* motor);
+		static void addLinearRampingMotor(PololuG2* motor);
 		bool linearRamping;
 		float target;
-		float velocity;
+		float velocity = 4;
 		static float last_update;
 		static unsigned char motor_count;
-		static PololuG2 *motors[POLOLUG2_MAX_LINEAR_RAMP];
+		static PololuG2* motors[10];
 };
 
 #endif
