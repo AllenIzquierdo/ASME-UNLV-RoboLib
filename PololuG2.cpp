@@ -9,7 +9,7 @@
  * \param dir_pin Digital pin that connects to PololuG2's DIR pin.
  * \warning PWM pins may change between arduino compatible devices. For example, a pwm_pin on an Arduino UNO may not be a pwm_pin on Arduino Leonardo.
  */
-PololuG2::PololuG2(const byte enable_pin, const byte pwm_pin, const byte dir_pin) : Motor(MOTOR_ID_POLOLUG2)
+PololuG2::PololuG2(const byte enable_pin, const byte pwm_pin, const byte dir_pin, const bool linearRamping = false) : Motor(MOTOR_ID_POLOLUG2)
 {
 	this->enable_pin = enable_pin;
 	this->pwm_pin = pwm_pin;
@@ -17,6 +17,12 @@ PololuG2::PololuG2(const byte enable_pin, const byte pwm_pin, const byte dir_pin
 	pinMode(enable_pin, OUTPUT);
 	pinMode(pwm_pin, OUTPUT);
 	pinMode(dir_pin, OUTPUT);
+	
+	this->linearRamping = linearRamping;
+	if(linearRamping)
+	{
+		addLinearRampingMotor(this);
+	}
 }
 
 /** \brief Controll PololuG2 motor with MiniMaestroService.
@@ -29,7 +35,7 @@ PololuG2::PololuG2(const byte enable_pin, const byte pwm_pin, const byte dir_pin
  * \param dir_channel Output channel that connects to PololuG2's DIR pin.
  * \warning Configure the Output and Servo channels appropiately using Maestro Control Center Software.
  */
-PololuG2::PololuG2(const MiniMaestroService &miniMaestroService, const byte enable_channel, const byte pwm_channel, const byte dir_channel) : Motor(MOTOR_ID_POLOLUG2)
+PololuG2::PololuG2(const MiniMaestroService &miniMaestroService, const byte enable_channel, const byte pwm_channel, const byte dir_channel, const bool linearRamping = false) : Motor(MOTOR_ID_POLOLUG2)
 {
 	this->enable_pin = enable_channel;
 	this->pwm_pin = pwm_channel;
@@ -37,12 +43,65 @@ PololuG2::PololuG2(const MiniMaestroService &miniMaestroService, const byte enab
 	this->miniMaestroService = &miniMaestroService;
 
 	maestroService = true;
+	this->linearRamping = linearRamping;
+	if(linearRamping)
+	{
+		addLinearRampingMotor(this);
+	}
 }
 
 // TODO: Implement a way to detect if PololuG2 motor controller is powered before sending signals.
 void PololuG2::setPower(const float power)
 {
 	// TODO: Find a cleaner way to seperate these two protocals (maestro vs digital pins).
+	// Linear Ramping
+	if(linearRamping)
+	{
+		target = power;
+		return;
+	} else {
+		setOutputPower(power);
+	}
+
+	// MiniMaestroService
+}
+
+
+void PololuG2::addLinearRampingMotor(PololuG2* motor)
+{
+	motors[motor_count] = motor;
+	motor_count++;
+}
+
+void PololuG2::iterate()
+{
+	unsigned long time = millis();
+	float differential = float(time - last_update) / 1000;
+	last_update = time;
+
+	for(unsigned char i = 0; i < motor_count; i++)
+	{
+		float target = motors[i]->getTarget();
+		float power = motors[i]->getPower();
+		float velocity = motors[i]->getVelocity();
+		float displacement = target - power;
+		float projection = velocity * differential;
+		if(fabs(displacement) < velocity*differential)
+		{
+			motors[i]->setOutputPower(target);
+		} else {
+			if(displacement > 0)
+			{
+				motors[i]->setOutputPower(power + projection);
+			} else {
+				motors[i]->setOutputPower(power - projection);
+			}
+		}
+	}
+}
+
+void PololuG2::setOutputPower(const float power)
+{
 	Motor::setPower(power);
 	if(maestroService)
 	{
@@ -53,7 +112,7 @@ void PololuG2::setPower(const float power)
 			miniMaestroService->queTarget(dir_pin, 8000);
 		}
 
-		this->maestroOutput = uint16_t(fabs(getPower())*16000);
+		this->maestroOutput = uint16_t(fabs(this->getPower())*16000);
 		miniMaestroService->queTarget(this->pwm_pin, maestroOutput);
 		return; 
 	}
@@ -62,4 +121,22 @@ void PololuG2::setPower(const float power)
 	this->output = byte(fabs(getPower()) * 255);
 
 	analogWrite(this->pwm_pin, this->output);
+}
+
+float PololuG2::getTarget()
+{
+	return this->target;
+}
+
+/** \brief Set's linear ramping velocity. 
+ * \param velocity Units are change in power per second.
+ */
+void PololuG2::setVelocity(const float velocity)
+{
+	this->velocity = velocity;
+}
+
+float PololuG2::getVelocity()
+{
+	return this->velocity;
 }
