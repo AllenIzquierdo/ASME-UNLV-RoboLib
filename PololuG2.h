@@ -43,7 +43,7 @@ class PololuG2: public Motor {
 		static void addLinearRampingMotor(PololuG2* motor);
 		bool linearRamping;
 		float target;
-		float velocity = 4;
+		float velocity = 6;
 		static float last_update;
 		static unsigned char motor_count;
 		static PololuG2* motors[10];
