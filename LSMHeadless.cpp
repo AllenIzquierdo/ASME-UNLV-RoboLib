@@ -11,7 +11,7 @@ void LSMHeadless::calibrate()
 	float total;
 	float sample;
 
-	for(unsigned char i = 0; i < 15; i++)
+	for(unsigned char i = 0; i < 150; i++)
 	{
 		lsm6.read();
 		total = total + lsm6.g.z;
