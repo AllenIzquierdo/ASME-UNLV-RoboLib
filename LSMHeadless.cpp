@@ -49,3 +49,18 @@ float LSMHeadless::getRelativeYaw()
 {
 	return relative_yaw;
 }
+
+int16_t LSMHeadless::getBias()
+{
+	return bias;
+}
+
+LSM6* LSMHeadless::getLSM6()
+{
+	return &lsm6;
+}
+
+void LSMHeadless::trim(float value)
+{
+	relative_yaw = relative_yaw + value;
+}

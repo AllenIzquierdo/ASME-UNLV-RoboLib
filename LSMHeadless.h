@@ -9,8 +9,12 @@ class LSMHeadless{
 		void zero();
 		void iterate();
 		void calibrate();
+		void trim(float);
 		float getAbsYaw();
 		float getRelativeYaw();
+		int16_t getBias();
+		LSM6* getLSM6();
+
 	protected:
 	private:
 		unsigned long calibration_time;
