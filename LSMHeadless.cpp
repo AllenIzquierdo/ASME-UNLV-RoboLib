@@ -18,6 +18,7 @@ void LSMHeadless::calibrate()
 		sample++;
 	}
 	bias = total/sample;
+	prev_time = millis(); // Updates time differential.
 }
 
 void LSMHeadless::init()
