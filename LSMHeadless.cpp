@@ -24,7 +24,12 @@ void LSMHeadless::calibrate()
 void LSMHeadless::init()
 {
 	Wire.begin();
-	lsm6.init();
+	unsigned byte tries;
+	while(!lsm6.init() && tries < 100)
+	{
+		tries++;
+		delay(5);
+	}
 	lsm6.enableDefault();
   	lsm6.writeReg(LSM6::CTRL1_XL, 0x3C); // 52 Hz, 8 g full scale
 	lsm6.writeReg(LSM6::CTRL2_G, 0x4C); // 104 Hz, 2000 dps full scale
