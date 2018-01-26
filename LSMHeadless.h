@@ -17,6 +17,7 @@ class LSMHeadless{
 
 	protected:
 	private:
+		bool isInitialized;
 		unsigned long calibration_time;
 		unsigned long last_calibration;
 		float abs_yaw;

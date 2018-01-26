@@ -8,6 +8,8 @@ void LSMHeadless::zero()
 
 void LSMHeadless::calibrate()
 {
+	if(!isInitilized)
+		return;
 	float total;
 	float sample;
 	for(unsigned char i = 0; i < 150; i++)
@@ -25,7 +27,7 @@ void LSMHeadless::init()
 {
 	Wire.begin();
 	unsigned byte tries;
-	while(!lsm6.init() && tries < 100)
+	while(!(isInitialized == lsm6.init()) && tries < 100)
 	{
 		tries++;
 		delay(5);
@@ -37,6 +39,8 @@ void LSMHeadless::init()
 
 void LSMHeadless::iterate()
 {
+	if(!isInitilized)
+		return;
 	float timer = millis();
 	float dt = float(timer - prev_time) / 1000;
 	lsm6.read();
