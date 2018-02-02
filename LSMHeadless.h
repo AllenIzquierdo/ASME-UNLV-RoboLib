@@ -14,10 +14,13 @@ class LSMHeadless{
 		float getRelativeYaw();
 		int16_t getBias();
 		LSM6* getLSM6();
+		bool getInitialized();
+
+		unsigned char tries;
 
 	protected:
 	private:
-		bool isInitialized;
+		bool isInitialized = false;
 		unsigned long calibration_time;
 		unsigned long last_calibration;
 		float abs_yaw;

@@ -8,7 +8,7 @@ void LSMHeadless::zero()
 
 void LSMHeadless::calibrate()
 {
-	if(!isInitilized)
+	if(!isInitialized)
 		return;
 	float total;
 	float sample;
@@ -26,12 +26,14 @@ void LSMHeadless::calibrate()
 void LSMHeadless::init()
 {
 	Wire.begin();
-	unsigned byte tries;
-	while(!(isInitialized == lsm6.init()) && tries < 100)
+	delay(10);
+	tries = 0;
+	while(!(isInitialized = lsm6.init()) && tries < 150)
 	{
 		tries++;
 		delay(5);
 	}
+
 	lsm6.enableDefault();
   	lsm6.writeReg(LSM6::CTRL1_XL, 0x3C); // 52 Hz, 8 g full scale
 	lsm6.writeReg(LSM6::CTRL2_G, 0x4C); // 104 Hz, 2000 dps full scale
@@ -39,7 +41,7 @@ void LSMHeadless::init()
 
 void LSMHeadless::iterate()
 {
-	if(!isInitilized)
+	if(!isInitialized)
 		return;
 	float timer = millis();
 	float dt = float(timer - prev_time) / 1000;
@@ -73,4 +75,9 @@ LSM6* LSMHeadless::getLSM6()
 void LSMHeadless::trim(float value)
 {
 	relative_yaw = relative_yaw + value;
+}
+
+bool LSMHeadless::getInitialized()
+{
+	return isInitialized;
 }
