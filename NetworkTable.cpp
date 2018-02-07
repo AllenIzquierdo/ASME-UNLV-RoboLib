@@ -41,8 +41,10 @@ void NetworkTable::processPacketFromSender(const PacketSerial& sender, const uin
 			{
 				byteMap[i] = buffer[i+3];
 			}
+			break;
 		case NETWORK_CMD_HELLOWORLD:
 			byteMap[HMAP_HELLOWORLD] = buffer[3];
+			break;
 		case NETWORK_CMD_PS2DATA:
 			for(byte i = 0; i < 21; i++)
 			{
@@ -52,6 +54,7 @@ void NetworkTable::processPacketFromSender(const PacketSerial& sender, const uin
 			Serial.println();
 			ps2x->read_gamepad();
 			time_lastps2packet = millis();
+			break;
 
 	}
 
