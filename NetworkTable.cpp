@@ -2,6 +2,9 @@
 #define NETWORK_CMD_HELLOWORLD 0 
 #define NETWORK_CMD_FLUSHBYTES 1
 #define NETWORK_CMD_PS2DATA 2
+#define NETWORK_CMD_LOGBYTE 3
+#define NETWORK_CMD_LOGLONG 4
+#define NETWORK_CMD_LONGULONG 5
 
 #define PACKET_COMMAND 2
 #define PACKET_HASHKEY 1
@@ -36,8 +39,17 @@ void NetworkTable::processPacketFromSender(const PacketSerial& sender, const uin
 
 	switch(buffer[2])
 	{
+		case NETWORK_CMD_LOGLONG:
+			Serial.println(millis());
+			Serial.println(",");
+			Serial.println(*(long*)(&buffer[3]));
+			break;
+		case NETWORK_CMD_LOGBYTE:
+			Serial.println(millis());
+			Serial.println(",");
+			Serial.println(buffer[3]);
+			break;
 		case NETWORK_CMD_FLUSHBYTES:
-			for(byte i = 0; i < byteMapSize; i++)
 			{
 				byteMap[i] = buffer[i+3];
 			}
@@ -146,4 +158,21 @@ void NetworkTable::sendPS2Data(PacketSerial* sender)
 void NetworkTable::setPS2(PS2X &ps2x)
 {
 	this->ps2x = &ps2x;
+}
+
+void NetworkTable::logByte(byte value)
+{
+	packetBuffer[0] = 3 + 21;
+	packetBuffer[1] = 0;
+	packetBuffer[2] = NETWORK_CMD_LOGBYTE;
+	packetBuffer[3] = value;
+}
+
+void NetworkTable::logLong(long value)
+{
+	packetBuffer[0] = 3 + 21;
+	packetBuffer[1] = 0;
+	packetBuffer[2] = NETWORK_CMD_LOGBYTE;
+	packetBuffer[3] = *((byte*)&value);
+	packetBuffer[3] = *(((byte*)&value) + 1);
 }

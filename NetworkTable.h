@@ -27,6 +27,8 @@ class NetworkTable {
 		// Network Packet Commands
 		void flushBytes(PacketSerial* sender);
 		void helloWorld(PacketSerial* sender, const byte value);
+		void logByte(byte value);
+		void logLong(long value);
 		void setPS2(PS2X &ps2X);
 		void sendPS2Data(PacketSerial* sender);
 	private:
