@@ -49,9 +49,9 @@ void NetworkTable::processPacketFromSender(const PacketSerial& sender, const uin
 			for(byte i = 0; i < 21; i++)
 			{
 				ps2x->PS2data[i] = buffer[i+3];
-				Serial.println(buffer[i+3], HEX);
+				//Serial.println(buffer[i+3], HEX);
 			}
-			Serial.println();
+			//Serial.println();
 			ps2x->read_gamepad();
 			time_lastps2packet = millis();
 			break;
