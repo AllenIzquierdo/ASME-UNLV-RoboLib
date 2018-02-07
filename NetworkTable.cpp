@@ -19,7 +19,7 @@
  */
 NetworkTable::NetworkTable(int byteSize, int floatSize)
 {
-	this->byteMap = new byte[byteSize+3];
+	this->byteMap = new byte[byteSize];
 	byteMapSize = byteSize;
 }
 
@@ -50,6 +50,7 @@ void NetworkTable::processPacketFromSender(const PacketSerial& sender, const uin
 			Serial.println(buffer[3]);
 			break;
 		case NETWORK_CMD_FLUSHBYTES:
+			for(byte i = 0; (i < byteMapSize) && (i < byteMapSize); i++)
 			{
 				byteMap[i] = buffer[i+3];
 			}
