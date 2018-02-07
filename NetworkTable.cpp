@@ -132,9 +132,9 @@ void NetworkTable::sendPS2Data(PacketSerial* sender)
 	{
 		packetBuffer[i+3] = ps2x->PS2data[i];
 		
-		Serial.println(ps2x->PS2data[i], HEX);
+		//Serial.println(ps2x->PS2data[i], HEX);
 	}
-	Serial.println();
+	//Serial.println();
 	sender->send(packetBuffer, packetBuffer[0]);
 }
 
