@@ -4,7 +4,7 @@
 #define NETWORK_CMD_PS2DATA 2
 #define NETWORK_CMD_LOGBYTE 3
 #define NETWORK_CMD_LOGLONG 4
-#define NETWORK_CMD_LONGULONG 5
+#define NETWORK_CMD_LOGINT 5
 
 #define PACKET_COMMAND 2
 #define PACKET_HASHKEY 1
@@ -42,12 +42,17 @@ void NetworkTable::processPacketFromSender(const PacketSerial& sender, const uin
 		case NETWORK_CMD_LOGLONG:
 			Serial.println(millis());
 			Serial.println(",");
-			Serial.println(*(long*)(&buffer[3]));
+			Serial.println(*((long*)(buffer + 3)));
 			break;
 		case NETWORK_CMD_LOGBYTE:
 			Serial.println(millis());
 			Serial.println(",");
 			Serial.println(buffer[3]);
+			break;
+		case NETWORK_CMD_LOGINT:
+			Serial.println(millis());
+			Serial.println(",");
+			Serial.println(*((int*)(buffer+3)));
 			break;
 		case NETWORK_CMD_FLUSHBYTES:
 			for(byte i = 0; (i < byteMapSize) && (i < byteMapSize); i++)
@@ -161,19 +166,43 @@ void NetworkTable::setPS2(PS2X &ps2x)
 	this->ps2x = &ps2x;
 }
 
-void NetworkTable::logByte(byte value)
+/** \brief Prints byte String Data on DriverStation
+ *
+ * \param value - Byte Datatype to print on driver station.
+ * \warning Experimental.
+ */
+void NetworkTable::logByte(byte value, PacketSerial* sender)
 {
-	packetBuffer[0] = 3 + 21;
+	packetBuffer[0] = 3 + 1;
 	packetBuffer[1] = 0;
 	packetBuffer[2] = NETWORK_CMD_LOGBYTE;
 	packetBuffer[3] = value;
+	sender->send(packetBuffer, packetBuffer[0]);
 }
 
-void NetworkTable::logLong(long value)
+/** \brief Prints Long String Data on DriverStation
+ *
+ * \param value - Long Datatype to print on driver station.
+ * \warning Experimental.
+ */
+void NetworkTable::logLong(long value, PacketSerial* sender)
 {
-	packetBuffer[0] = 3 + 21;
+	packetBuffer[0] = 3 + 4;
 	packetBuffer[1] = 0;
-	packetBuffer[2] = NETWORK_CMD_LOGBYTE;
+	packetBuffer[2] = NETWORK_CMD_LOGLONG;
 	packetBuffer[3] = *((byte*)&value);
-	packetBuffer[3] = *(((byte*)&value) + 1);
+	packetBuffer[4] = *(((byte*)&value) + 1);
+	packetBuffer[5] = *(((byte*)&value) + 2);
+	packetBuffer[6] = *(((byte*)&value) + 3);
+	sender->send(packetBuffer, packetBuffer[0]);
+}
+
+void NetworkTable::logInt(int value, PacketSerial* sender)
+{
+	packetBuffer[0] = 3 + 2;
+	packetBuffer[1] = 0;
+	packetBuffer[2] = NETWORK_CMD_LOGINT;
+	packetBuffer[3] = *((byte*)&value);
+	packetBuffer[4] = *(((byte*)&value) + 1);
+	sender->send(packetBuffer, packetBuffer[0]);
 }
