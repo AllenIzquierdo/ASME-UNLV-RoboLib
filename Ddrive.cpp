@@ -109,3 +109,19 @@ void Ddrive::smartConstrain(float &val1, float &val2)
 		val1 = val1 - temp;
 	}
 }
+
+bool Ddrive::getReverseValue(const unsigned char motor)
+{
+	switch(motor)
+	{
+		case 1:
+			return reverseLeftMotor;
+			break;
+		case 2:
+			return reverseRightMotor;
+			break;
+		case 3:
+			return reverseLeftMotor;
+			break;
+	}
+}

@@ -11,6 +11,7 @@ class Ddrive{
 		Ddrive(Motor&, Motor&, Motor&);
 		void drive(const float dir, const float thrust, const float turnfactor);
 		void reverseMotor(const unsigned char motor, const bool value);
+		bool getReverseValue(const unsigned char motor);
 		void smartConstrain(float &val1, float &val2);
 	protected:
 	private:
