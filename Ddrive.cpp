@@ -70,10 +70,13 @@ void Ddrive::reverseMotor(const unsigned char motor, const bool value)
 	{
 		case 1:
 			reverseLeftMotor = value;
+			break;
 		case 2:
 			reverseRightMotor = value;
+			break;
 		case 3:
 			reverseMiddleMotor = value;
+			break;
 	}
 }
 
