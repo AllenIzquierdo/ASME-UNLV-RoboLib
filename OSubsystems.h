@@ -1,37 +1,82 @@
+// TODO 2-15
+// CHECK PROG USAGE
+// Currently Working on PUSHING 3vairables onto stacks
+
 #ifndef OSUBSYSTEMS_H
 #define OSUBSYSTEMS_H
 #include <TalonSR.h>
 #include <PololuG2.h>
 #include <HolonomicDrive.h>
 #include <HS485.h>
+#include <Motor.h>
+#define MAX_SEQUENCE 20
+#define INTAKE_MOTOR_POWER 1
+#define INTAKE_SERVO_ANGLE 2
+#define INTAKE_INTAKE 3
+#define INTAKE_OUTTAKE 4
+#define INTAKE_IDLE 5 
+#define SHOOTER_ANGLE 6
+#define SHOOTER_POWER 7 
+#define CHAMBER_INTAKE 8 
+#define CHAMBER_SHOOT 9 
+#define CHAMBER_IDLE 10
+#define RESET_SUBSYSTEMS 11
+
 class OSubsystems{
 	public:
-		OSubSystems(HolonomicDrive &drive, Motor &shooter, HS485 &chamber, Motor &intakeRoller, HS485 intakeHS485);
-		void pushSequence(byte type, unsigned long delay, bool executeNow);
+		OSubsystems(const HolonomicDrive & drive, const Motor & shooter, const HS485 & shooter_servo, const HS485 & chamber, const Motor & intake_motor, const HS485 & intake_servo);
+		
+		// Sequence Commands
+		void pushSequence(byte type, unsigned long delay, bool executeNow); 
 		void pushSequence(byte type, unsigned long delay, float value, bool executeNow);
-		void popSequence();
+		void popSequence(byte type, float value);
 		void executeSequence();
 		void resetSubsystems();
 		void iterate();
-		void chamberIntake();
-		void setShooter(float power);
-		void setChamber(float angle);
-		void setIntakeAngle(float angle);
-		void setIntakeRoller(float power);
-	protected:
-	private:
-		HolonomicDrive* chassis;
-		TalonSR* shooter;
-		HS485* chamber;
-		bool sequenceLock;
+		bool isLocked();
+		void resetLocks();
+
+		// Subsystems Command
+		void setShooter(float power, bool bypass);
+		void setShooterAngle(float angle, bool bypass);
+		void setChamber(float angle, bool bypass);
+		void setIntakeAngle(float angle, bool bypass);
+		void setIntakeRoller(float power, bool bypass);
+		void setSystemsIntake(bool bypass);
+		void setSystemsOuttake(bool bypass);
+		void setSystemsIdle(bool bypass);
+
+		// Default Values
 		float chamber_intake_pos;
 		float chamber_shoot_pos;
 		float chamber_idle_pos;
 		float intake_idle_pos;
 		float intake_intake_pos;
-		byte sequence_index_type;
-		byte sequence_index_value;
-		byte sequence_index
+		float intake_roller_in;
+		float intake_roller_out;
+	protected:
+	private:
+		// Object Pointers
+		HolonomicDrive* chassis;
+		Motor* shooter;
+		Motor* intake_motor;
+		HS485* intake_servo;
+		HS485* chamber;
+		HS485* shooter_servo;
 
-}
+		// Sequence Locks
+		bool sequenceLock;
+		bool autolock = true;
+		bool chamberLock;
+		bool intakeMotorLock;
+		bool intakeServoLock;
+		bool shooterLock;
+
+		// Sequence Data
+		byte sequence_types[MAX_SEQUENCE];
+		unsigned long sequence_delays[MAX_SEQUENCE];
+		float sequence_values[MAX_SEQUENCE];
+		byte sequence_index;
+		unsigned long last_time;
+};
 #endif
