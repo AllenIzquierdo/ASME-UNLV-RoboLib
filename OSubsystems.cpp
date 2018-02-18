@@ -65,8 +65,10 @@ void OSubsystems::pushSequence(byte type, unsigned long delay, float value, bool
 }
 
 // TODO FILL Sequences
-void OSubsystems::popSequence(byte type, float value)
+void OSubsystems::popSequence()
 {
+	byte type = sequence_types[sequence_index];
+	float value = sequence_values[sequence_index];
 	switch(type)
 	{
 		case SHOOTER_ANGLE:
@@ -124,10 +126,10 @@ void OSubsystems::iterate()
 	// Pops Sequence When delay time has passed or delay == 0.
 	if((millis() - last_time) > sequence_delays[sequence_index])
 	{
-		popSequence(sequence_types[sequence_index], sequence_values[sequence_index]);
+		popSequence();
 		while(sequence_delays[sequence_index] == 0 && sequence_index >= 0)
 		{
-			popSequence(sequence_types[sequence_index], sequence_values[sequence_index]);
+			popSequence();
 		}
 		last_time = millis();
 	}

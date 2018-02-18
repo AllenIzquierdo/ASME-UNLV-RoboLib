@@ -29,7 +29,7 @@ class OSubsystems{
 		// Sequence Commands
 		void pushSequence(byte type, unsigned long delay, bool executeNow); 
 		void pushSequence(byte type, unsigned long delay, float value, bool executeNow);
-		void popSequence(byte type, float value);
+		void popSequence();
 		void executeSequence();
 		void resetSubsystems();
 		void iterate();
