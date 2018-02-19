@@ -36,7 +36,7 @@ void Ddrive::drive(const float dir, const float thrust, const float turnfactor)
 
 	Lthrust = Lthrust * thrust + turnfactor;
 	Rthrust = Rthrust * thrust - turnfactor;
-	Mthrust = Mthrust * thrust + turnfactor;
+	Mthrust = Mthrust * thrust - turnfactor;
 
 	Mthrust = constrain(Mthrust, -1, 1);
 	smartConstrain(Lthrust, Rthrust);
