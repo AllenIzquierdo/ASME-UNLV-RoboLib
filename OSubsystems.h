@@ -27,8 +27,8 @@ class OSubsystems{
 		OSubsystems(const HolonomicDrive & drive, const Motor & shooter, const HS485 & shooter_servo, const HS485 & chamber, const Motor & intake_motor, const HS485 & intake_servo);
 		
 		// Sequence Commands
-		void pushSequence(byte type, unsigned long delay, bool executeNow); 
-		void pushSequence(byte type, unsigned long delay, float value, bool executeNow);
+		void pushSequence(byte type, unsigned long delay, bool executeNow = false); 
+		void pushSequence(byte type, unsigned long delay, float value, bool executeNow = false);
 		void popSequence();
 		void executeSequence();
 		void resetSubsystems();
