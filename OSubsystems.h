@@ -76,7 +76,7 @@ class OSubsystems{
 		byte sequence_types[MAX_SEQUENCE];
 		unsigned long sequence_delays[MAX_SEQUENCE];
 		float sequence_values[MAX_SEQUENCE];
-		byte sequence_index;
+		char sequence_index;
 		unsigned long last_time;
 };
 #endif
