@@ -37,14 +37,14 @@ class OSubsystems{
 		void resetLocks();
 
 		// Subsystems Command
-		void setShooter(float power, bool bypass);
-		void setShooterAngle(float angle, bool bypass);
-		void setChamber(float angle, bool bypass);
-		void setIntakeAngle(float angle, bool bypass);
-		void setIntakeRoller(float power, bool bypass);
-		void setSystemsIntake(bool bypass);
-		void setSystemsOuttake(bool bypass);
-		void setSystemsIdle(bool bypass);
+		void setShooter(float power, bool bypass = false);
+		void setShooterAngle(const float angle, bool bypass = false);
+		void setChamber(float angle, bool bypass = false);
+		void setIntakeAngle(float angle, bool bypass = false);
+		void setIntakeRoller(float power, bool bypass = false);
+		void setSystemsIntake(bool bypass = false);
+		void setSystemsOuttake(bool bypass = false);
+		void setSystemsIdle(bool bypass = false);
 
 		// Default Values
 		float chamber_intake_pos;
