@@ -1,0 +1,7 @@
+Dependacies:
+LEDS: https://github.com/pololu/apa102-arduino.git
+LSM6: https://github.com/pololu/lsm6-arduino
+LISMD3L: https://github.com/pololu/lis3mdl-arduino
+A*: https://github.com/pololu/a-star-32u4-arduino-library
+Maestro: https://github.com/pololu/maestro-arduino
+PacketSerial: https://github.com/bakercp/PacketSerial
