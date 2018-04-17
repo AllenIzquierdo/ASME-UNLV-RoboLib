@@ -1,9 +1,9 @@
 #include <TankDrive.h>
 
 /** \brief Constructs the TankDrive with 4 motors.
- * 
+ *
  * Arguments must be speed controllers derived from abstract Motor class.
- * \param leftMotor1 Speed controller for left motor. 
+ * \param leftMotor1 Speed controller for left motor.
  * \param leftMotor2 Speed controller for left motor.
  * \param rightMotor1 Speed controller for right motor.
  * \param rightMotor1 Speed controller for right motor.
@@ -19,7 +19,7 @@ TankDrive::TankDrive(const Motor &leftMotor1, const Motor &leftMotor2, const Mot
 /** \brief Drives TankDrive with ps2 controller.
  *
  * Updates TankDrive once, using ps2x controller. Usually called repeatedly in loop().
- * \param ps2x ps2 controller used to controll the TankDrive.
+ * \param ps2x ps2 controller used to control the TankDrive.
  */
 void TankDrive::drive(PS2X ps2x)
 {
@@ -49,12 +49,12 @@ void TankDrive::drive(float left, float right)
 
 }
 
-/** \brief Reverses leftMotors' foward direction.
+/** \brief Reverses leftMotors' forward direction.
  *
  * To be used when Allen is too lazy to rewire the robot.
- * True: driving tankdrive left motors foward will actually drive left motors in reverse, and vice versa.
+ * True: driving tankdrive left motors forward will actually drive left motors in reverse, and vice versa.
  * False: Normal behavior.
- * \param enable Reverse left motors foward direction.
+ * \param enable Reverse left motors forward direction.
  */
 void TankDrive::reverseLeftMotors(bool enable)
 {

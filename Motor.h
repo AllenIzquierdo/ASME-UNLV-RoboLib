@@ -3,7 +3,7 @@
 #include <Arduino.h>
 
 
-/** \brief Abstract Class used as base class for speed controllers.
+/** \brief This is the Abstract Class used as the base class for speed controllers.
  */
 class Motor {
 	public:

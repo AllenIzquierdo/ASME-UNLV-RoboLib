@@ -2,7 +2,7 @@
 //	Plan:
 //		Use a pesuado hashmap using macro constants.
 //		Use PacketSerial to encode & decode using COBS.
-//	- Use this following Lambda expression to bind PacketSerial handler to the class - 
+//	- Use this following Lambda expression to bind PacketSerial handler to the class -
 //	<PacketSerial>.setPacketHandler([](const uint8_t* buffer, size_t size) {
 //	<NetworkTable>.processPacketFromSender(<PacketSerial>, buffer, size);
 //	});
@@ -10,11 +10,11 @@
 #include <PacketSerial.h>
 #include "PS2X_lib.h"
 
-/** \brief Handles data from wixel's radio.
+/** \brief This handles the data sent from the wixel's radio.
  *
- * NetworkTable is used to process decoded packets from driver station.
- * NetworkTable must be binded to PacketSerial object by Lambda expressions. View examples to see how it's done.
- * \warning Do not send multiple packets concurrently. It doesn't work (yet)!
+ * The NetworkTable is used to process the decoded packets from the driver's station.
+ * The NetworkTable must be binded to the PacketSerial object by Lambda expressions. Please view the examples to see how it's done.
+ * \warning !! Do not send multiple packets concurrently. It does not work (yet) !!
  */
 class NetworkTable {
 	public:
