@@ -1,0 +1,77 @@
+#######################################
+# Syntax Coloring Map For ASME
+#######################################
+ 
+#######################################
+# Libraries (KEYWORD1)
+#######################################
+ 
+MiniMaestroService	KEYWORD1
+TalonSR	KEYWORD1
+PololuG2	KEYWORD1
+HolonomicDrive	KEYWORD1
+PS2X_lib	KEYWORD1
+HS485	KEYWORD1
+NetworkTable	KEYWORD1
+Motor	KEYWORD1
+TankDrive	KEYWORD1
+
+ 
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+# MiniMaestroService Functions #
+queTarget KEYWORD2
+sendValues	KEYWORD2
+service	KEYWORD2
+setUpdatePeriod	KEYWORD2
+getQueTarget	KEYWORD2
+
+# Motor Functions #
+setPower	KEYWORD2
+getPower	KEYWORD2
+
+
+# PololuG2 Functions #
+setPower KEYWORD2
+
+# HS48 Functions #
+setPosition	KEYWORD2
+
+# NetworkTable Functions #
+getByte	KEYWORD2
+setByte	KEYWORD2
+processPacketFromSender	KEYWORD2
+networkService	KEYWORD2
+flushBytes	KEYWORD2
+helloWorld	KEYWORD2
+setPS2	KEYWORD2
+sendPS2Data	KEYWORD2
+
+# PS2_lib #
+Button KEYWORD2
+NewButtonState	KEYWORD2
+ButtonPressed	KEYWROD2
+ButtonReleased	KEYWRORD2
+read_gamepad	KEYWORD2
+readType	KEYWORD2
+config_gamepad	KEYWORD2
+enableRumble	KEYWORD2
+enablePressures	KEYWORD2
+analog	KEYWORD2
+JoyStick	KEYWORD2
+reconfig_gamepad	KEYWORD2
+
+# TankDrive Functions #
+drive	KEYWORD2
+reverseLeftMotors	KEYWORD2
+reverseRightMotors	KEYWORD2
+
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+
+
