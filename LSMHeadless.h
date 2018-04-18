@@ -3,6 +3,11 @@
 #include <Wire.h>
 #include <LSM6.h>
 #include <Arduino.h>
+
+/** \brief This object handles communication and integration of gryodata.
+ *
+ * This object is meant to interface with Pololu's MinIMU-9 v5 (Pololu #2738). It initializes communication and integrates gyro data to track relative angles about the z-axis.
+ */
 class LSMHeadless{
 	public:
 		void init();
