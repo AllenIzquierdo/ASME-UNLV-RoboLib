@@ -1,6 +1,7 @@
 #include <HolonomicDrive.h>
 /** \brief Creates a Holonomic Drive with four generic speed controllers.
  *
+ * Refer to Desperado/Renegade documentation for use.
  * Motor numbers start from the front right motor, and this one will called "motor1." The number process proceeds counter clockwise.
  * So "motor2" will then be the front left motor. "motor3" will be the back left motor. And finally "motor4" will be the back right motor.
  * \param motor1 - front right motor
@@ -16,7 +17,7 @@ HolonomicDrive::HolonomicDrive(const Motor & motor1, const Motor & motor2, const
 	this->motor4 = &motor4;
 }
 
-/** \brief This is the holonomic drive, which drives by giving us the direction, thrust, and turn values.
+/** \brief This is the holonomic's drive function, which controlls the chassis by direction, thrust, and turnfactor values.
  * \param dir     - The direction we drive towards, this is measured in radians.
  * \param thrust  - This is how much power is to be given to the motors. The input value range is -1 to 1. If the value is zero, the motors
  won't be given any power. The thrust is calculated with vector math.
@@ -129,7 +130,7 @@ void HolonomicDrive::smartConstrain(float &val1, float &val2)
 	}
 }
 
-/** \brief This section is dedicated to reversing a specific motor
+/** \brief This function is dedicated to reversing a specific motor
  *
  * This reverses a specific motor's forward direction only. This function is used to reverse motor direction without any wire hassle.
  * \param motor  - Which motor to reverse.
