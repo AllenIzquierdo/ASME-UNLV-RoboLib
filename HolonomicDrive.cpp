@@ -142,12 +142,16 @@ void HolonomicDrive::reverseMotor(const unsigned char motor, const bool value)
 	{
 		case 1:
 			reverse1 = value;
+			break;
 		case 2:
 			reverse2 = value;
+			break;
 		case 3:
 			reverse3 = value;
+			break;
 		case 4:
 			reverse4 = value;
+			break;
 	}
 }
 
@@ -172,3 +176,6 @@ void HolonomicDrive::reverseRightMotors(const bool value)
 	reverse1 = value;
 	reverse4 = value;
 }
+
+//void 
+
