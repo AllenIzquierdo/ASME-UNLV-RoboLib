@@ -7,7 +7,7 @@ unsigned char PololuG2::motor_count;
 PololuG2* PololuG2::motors[10];
 
 
-/** \brief Controll PololuG2 motor with Arduino pins.
+/** \brief Control PololuG2 motor with Arduino pins.
  *
  * \param enable_pin Digital pin that connects to PololuG2's sleep pin.
  * \param pwm_pin Digital pwm pin that connects to PololuG2's PWM pin.
@@ -22,7 +22,7 @@ PololuG2::PololuG2(const byte enable_pin, const byte pwm_pin, const byte dir_pin
 	pinMode(enable_pin, OUTPUT);
 	pinMode(pwm_pin, OUTPUT);
 	pinMode(dir_pin, OUTPUT);
-	
+
 	this->linearRamping = linearRamping;
 	if(linearRamping)
 	{
@@ -119,7 +119,7 @@ void PololuG2::setOutputPower(const float power)
 
 		this->maestroOutput = uint16_t(fabs(this->getPower())*16000);
 		miniMaestroService->queTarget(this->pwm_pin, maestroOutput);
-		return; 
+		return;
 	}
 
 	if(this->getPower() < 0)
@@ -138,8 +138,8 @@ float PololuG2::getTarget()
 	return this->target;
 }
 
-/** \brief Set's linear ramping velocity. 
- * \param velocity Units are change in power per second.
+/** \brief This sets the linear ramping velocity.
+ * \param velocity   - The units are changed in power per second.
  */
 void PololuG2::setVelocity(const float velocity)
 {

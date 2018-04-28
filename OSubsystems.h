@@ -22,6 +22,25 @@
 #define CHAMBER_IDLE 10
 #define RESET_SUBSYSTEMS 11
 
+
+/** \brief  2018 SDC Offensive Robot Object.
+ *
+ * An object to controll Desperado/Renegade subsystems in an a orderly manner. It provides a single sequence stack for multitasking.
+ *
+ * A sequence stack in this context is a sequence of commands. The commands are called in chronological order with specified delays. Other robot operations and subsystems can act independently while the sequence stack is executing commands. Note: The sequence stack pops commands from the sequence stack when executing them. It does not execute commands by unshifting the stack.
+ *
+ * For example:
+	subsystems.pushSequence(CHAMBER_IDLE,0);
+	subsystems.pushSequence(SHOOTER_POWER, 2000, (float)0.0);
+	subsystems.pushSequence(CHAMBER_SHOOT, 1500);
+	subsystems.pushSequence(SHOOTER_POWER, 0, (float)1.0);
+	subsystems.pushSequence(SHOOTER_ANGLE, 0, (float)4645/52);
+	subsystems.pushSequence(CHAMBER_IDLE, 0, true);
+ * This code will reset shooting subsystems and set shooting angle. After 1.5 seconds, it will shoot the ball. 2 seconds later, it will shut off the shooter motor and reset the chamber.
+ * All other subsystems (drive chassis and intake) can still act independtly during this 4 seconds.
+ *
+ * No additional commands can be added to the sequence stack while the sequence stack is executing commands.
+*/
 class OSubsystems{
 	public:
 		OSubsystems(const HolonomicDrive & drive, const Motor & shooter, const HS485 & shooter_servo, const HS485 & chamber, const Motor & intake_motor, const HS485 & intake_servo);

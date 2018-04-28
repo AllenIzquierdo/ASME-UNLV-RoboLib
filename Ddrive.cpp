@@ -1,5 +1,14 @@
 #include <Ddrive.h>
 
+/** \brief Constructor for Ddrive class
+ *
+ * Refere to Outlaw documentation for use.
+ *
+ * For the purpose of reversing motor, left motor, middle motor, and right motor are motor 1, 3, and 2 respectively.
+ * \param leftmotor 	- back left motor
+ * \param middle motor 	- back middle motor
+ * \param &rightmotor 	- back right motor
+ */
 Ddrive::Ddrive(Motor &leftmotor, Motor &rightmotor, Motor &middlemotor)
 {
 	this->leftmotor = &leftmotor;
@@ -7,6 +16,13 @@ Ddrive::Ddrive(Motor &leftmotor, Motor &rightmotor, Motor &middlemotor)
 	this->middlemotor = &middlemotor;
 }
  
+
+/** \brief This is the defense drive's drive function, which controlls the chassis by direction, thrust, and turnfactor values.
+ * \param dir     - The direction we drive towards, this is measured in radians.
+ * \param thrust  - This is how much power is to be given to the motors. The input value range is -1 to 1. If the value is zero, the motors
+ won't be given any power. The thrust is calculated with vector math.
+ * \param turn    - This is the turning factor. Input range is -1 to 1, if zero, no turning will be done.
+ */
 void Ddrive::drive(const float dir, const float thrust, const float turnfactor)
 {
 	float Lthrust = Vec2::dot(Vec2(.707, .707), Vec2(cos(dir), sin(dir)));
@@ -64,6 +80,12 @@ void Ddrive::drive(const float dir, const float thrust, const float turnfactor)
 
 }
 
+/** \brief This section is dedicated to reversing a specific motor
+ *
+ * This reverses a specific motor's forward direction only. This function is used to reverse motor direction without any wire hassle.
+ * \param motor  - Which motor to reverse.
+ * \param value  - True = forward direction is reversed. False = normal operation, no change will be done.
+ */
 void Ddrive::reverseMotor(const unsigned char motor, const bool value)
 {
 	switch(motor)
@@ -80,6 +102,13 @@ void Ddrive::reverseMotor(const unsigned char motor, const bool value)
 	}
 }
 
+/** \brief Constrain function for motor output
+ *
+ * Constrains floats to a value between 1 & -1, and will adjust other values to ensure the resultant force vector is
+ * pointing in the proper direction.
+ * \param val1 - Float Input 1
+ * \param val2 - Float Input 2
+ */
 void Ddrive::smartConstrain(float &val1, float &val2)
 {
 
@@ -110,6 +139,10 @@ void Ddrive::smartConstrain(float &val1, float &val2)
 	}
 }
 
+/** \brief Returns a boolean indiciate if the motor's forward direciton is reversed.
+ *
+ * Refer to constructor function description for motor numbers.
+ */
 bool Ddrive::getReverseValue(const unsigned char motor)
 {
 	switch(motor)

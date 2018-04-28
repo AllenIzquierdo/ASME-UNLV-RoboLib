@@ -6,16 +6,18 @@
 #include <SoftwareSerial.h>
 #include <Arduino.h>
 
-/** \brief Handles Maestro communication.
- * 
- * Extended from MiniMaestro. Used in conjunction with classes that control devices off MiniMaestro, e.g., TalonSR.
- * View examples to see how to use this class.
+/** \brief This handles the Maestro communications.
+ *
+ * This is extended from the MiniMaestro. This is used in conjunction with classes that control devices off of the MiniMaestro, e.g., TalonSR.
+ * View the examples to see how to use this class properly.
+ *
  * How to use:
- * 1. Create a serial object (hardware or software) that is connected to Maestro's RX/TX pins.
- * 2. Construct MiniMaestroService with the serial object.
- * 3. Que values to maestro with queTarget().
- * 4. Call service() in Arduino's loop().
- * \warning Please be carefull when configuring maestro. Some settings can damage the Maestro and devices controlled by it.
+ * 1. Create a serial object (hardware or software) that is connected to the Maestro's RX/TX pins.
+ * 2. Now construct the MiniMaestroService with the serial object.
+ * 3. Que the values to the Maestro with the function queTarget().
+ * 4. Finally, call for service() in the Arduino's loop().
+ *
+ * \warning Please be careful when configuring the Maestro. Some settings can damage the Maestro and devices controlled by it!
  */
 class MiniMaestroService: public MiniMaestro {
 	public:

@@ -1,4 +1,3 @@
-
 #ifndef HOLONOMICDRIVE_H
 #define HOLONOMICDRIVE_H
 #include <Motor.h>
@@ -6,9 +5,13 @@
 #include <Vector_temp.h>
 #include <math.h>
 
-/** \brief DriveBase for Holonomic Drive Chassis
+
+/** \brief DriveBase for the Holonomic Drive Chassis.
  *
- * Holonomic chassis are chassis with omniwheels with forward directions at 135 and 45 degrees. These chassis can move in all directions while turning in place. When turning the drive chassis, the chassis will sacrifice maximumm forward force to create a moment about its center. Essentially, the faster you turn, the slower you accelerate.
+ * The Holonomic chassis is a chassis(obviously) with omniwheels for forward directions at 135 and 45 degrees.
+ * These chassis can move in all directions while turning in place. When turning the drive chassis, the chassis
+ * will sacrifice maximum forward force to create a moment about its center. Essentially, the faster you turn,
+ * the slower you accelerate.
  */
 class HolonomicDrive{
 	public:
