@@ -21,7 +21,7 @@ static float Vec2::dot(Vec2 value1, Vec2 value2)
 }
 
 /** \brief Magnitude of a Vector
- * Calcualtes the magnitude(length) of a vector.
+ * Calculates the magnitude(length) of a vector.
  * \param value Input Vector
  * \return Length of Input Vector
  */

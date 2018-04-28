@@ -1,0 +1,60 @@
+/*! \mainpage Created for UNLV ASME SDC competition (2018).
+ *
+ * \section intro_sec Introduction
+ *
+ * This library was made for interfacing common components used in UNLV ASME
+   SDC designs. It contains objects for communicating between robots
+(NetworkTables), controlling actuators(motors/servos), and interfacing with
+sensors, e.g., Min IMU5.
+ *
+ * The goal is to provide an API to quickly prototype and create desired
+   behaviors with limited hardware (8 bit Arduinos, serial radios, ect). 
+   The low level communicaitons and signal processing is encapsulated.
+ *
+ * The library has been created with mechanical engineers in mind. The Arduino platform is used here due to its popularity and ease of use. Its IDE is easy to use requiring almost no setup. While it is far from the ideal platform for robotics development, its one of the most common easy to use microcontrollers. Embedded platforms, e.g. raspberry pi embedded with linux, will be more difficult to setup and use and defeat the library's purpose. 
+ *
+ *
+ * \section support_sec Supported Hardware
+ * The library currently suppors the following hardware:
+ * 	- %PololuG2 %Motor Drivers
+ * 	- %TalonSR %Motor Drivers
+ *	- %MiniMaestro Servo Controller
+ *	- %HS485 Servos
+ *	- %MinIMU5 (Inertial Measurment Unit)
+ *	- %APA102 LEDS
+ * \section encapsulation_sec Encapsulations
+ * Additionally, the library has several commonly used encapsulated objects.
+ * 	- NetworkTable: Packet Framing, sharing arbitrary data using a
+   	centralized radio hub.
+ *	- TankDrive, HolonomicDrive, Ddrive: Common drive chassis
+ 	configurations.
+ *	- OSubsystems: Hybrid sequential and teleop robot controller used in
+ 	UNLV ASME student design competition 2018.
+ *	- MiniMaestroService: Additional I/O and pwm signal generation.
+ *	- LSMHeadless: Calibration and integration of IMU5 gyro data.
+	- PS2X: Modified ps2x library for using play station 2 controllers as
+	  a HID.
+	- Motor: Abstract Class for creating motor controller interfaces.
+	- TalonSR, PololuG2: Commonly used motor controllers.
+ *
+ * \section Dependacies_sec Dependacies
+ * All dependacies are included:
+ * 	- %AP102
+ * 	- %PololuMaestro
+ * 	- %LSM6
+ * 	- %LIS3MDL
+ *	- %PacketSerial
+ *	
+ * \section install_sec Install by Zip
+ * \subsection step1 Step 1: Download the library.
+ * The library can be downloaded from <a href="https://github.com/unlv-asme-sdc/ASME-UNLV-RoboLib">github repository.</a> Locate the green "Clone or download" button near the top right of the page.
+ * \subsection step2 Step 2: Extract the library.
+ * Extract the zip file into the Arduino library folder, located in the Arduino sketchbook location.
+ * 
+ * \section install_sec2 Install by Git
+ * Git is the prefered version control system for development. If you are new git user, you should checkout this great <a href="https://git-scm.com/book/en/v2"> github book</a>.
+ * \subsection step11 Step 1: Download Git.
+ * Download and install <a href="https://git-scm.com/downloads"> Git</a>.
+ * \subsection step21 Step 2: Clone repository.
+ * Run "git clone https://github.com/unlv-asme-sdc/ASME-UNLV-RoboLib.git" in a bash from within library folder, located in your Arudino sketchbook location.
+ */

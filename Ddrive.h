@@ -6,6 +6,12 @@
 #include <math.h>
 
 
+/** \brief DriveBase for the Defense Drive Chassis.
+ *
+ * Defense Drive chassis for Outlaw drive chassis.
+ * The alogrithem behind driving the chassis is unorthodox, require free body diagram analysis of the drive chassis. Due to this, refer to Allen for detailed explanation on drive chassis algorithem.
+ */
+
 class Ddrive{
 	public:
 		Ddrive(Motor&, Motor&, Motor&);
