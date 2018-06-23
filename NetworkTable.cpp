@@ -244,6 +244,7 @@ void NetworkTable::putBufferFloat(const float& number)
 
 void NetworkTable::sendBuffer(PacketSerial* sender, const unsigned char networkCommand)
 {
+	putBufferByte(valuePairs);
 	packetBuffer[2] = networkCommand;
 	packetBuffer[0] = bufferIndex;
 	// Consider putting Hash Generator Module here.
