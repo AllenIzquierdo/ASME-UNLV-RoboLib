@@ -28,7 +28,7 @@ class NetworkTable {
 		void flushBytes(PacketSerial* sender);
 		void helloWorld(PacketSerial* sender, const byte value);
 		void logByte(byte value, PacketSerial* sender);
-		void logLong(long value, PacketSerial* sender);
+		void logFloat(float value, PacketSerial* sender);
 		void logInt(int value, PacketSerial* sender);
 		void setPS2(PS2X &ps2X);
 		void sendPS2Data(PacketSerial* sender);

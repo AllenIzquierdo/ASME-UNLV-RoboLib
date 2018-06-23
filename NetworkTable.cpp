@@ -3,7 +3,7 @@
 #define NETWORK_CMD_FLUSHBYTES 1
 #define NETWORK_CMD_PS2DATA 2
 #define NETWORK_CMD_LOGBYTE 3
-#define NETWORK_CMD_LOGLONG 4
+#define NETWORK_CMD_LOGFLOAT 4
 #define NETWORK_CMD_LOGINT 5
 #define NETWORK_CMD_SEND_FLOATS 6
 #define NETWORK_CMD_SEND_INTEGRALS 7
@@ -44,10 +44,10 @@ void NetworkTable::processPacketFromSender(const PacketSerial& sender, const uin
 
 	switch(buffer[2])
 	{
-		case NETWORK_CMD_LOGLONG:
+		case NETWORK_CMD_LOGFLOAT:
 			Serial.println(millis());
 			Serial.println(",");
-			Serial.println(*((long*)(buffer + 3)));
+			Serial.println(*((float*)(buffer + 3)));
 			break;
 		case NETWORK_CMD_LOGBYTE:
 			Serial.println(millis());
@@ -80,7 +80,7 @@ void NetworkTable::processPacketFromSender(const PacketSerial& sender, const uin
 			break;
 		case NETWORK_CMD_SEND_FLOATS:
 			Serial.println("RECIEVED FLOAT COMMAND");
-			processFloatPairs(buffer[size], &buffer[3]);
+			processFloatPairs(buffer[size-1], &buffer[3]);
 			break;
 	}
 
@@ -195,11 +195,11 @@ void NetworkTable::logByte(byte value, PacketSerial* sender)
  * \param value - Long Datatype to print on driver station.
  * \warning Experimental.
  */
-void NetworkTable::logLong(long value, PacketSerial* sender)
+void NetworkTable::logFloat(float value, PacketSerial* sender)
 {
 	packetBuffer[0] = 3 + 4;
 	packetBuffer[1] = 0;
-	packetBuffer[2] = NETWORK_CMD_LOGLONG;
+	packetBuffer[2] = NETWORK_CMD_LOGFLOAT;
 	packetBuffer[3] = *((byte*)&value);
 	packetBuffer[4] = *(((byte*)&value) + 1);
 	packetBuffer[5] = *(((byte*)&value) + 2);
