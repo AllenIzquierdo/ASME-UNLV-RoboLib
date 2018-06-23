@@ -300,3 +300,16 @@ void NetworkTable::processFloatPairs(unsigned char numberOfPairs, const unsigned
 
 
 
+void NetworkTable::printFloatMap()
+{
+	//clear putty
+	Serial.write(27);
+	Serial.print("[2J");
+	Serial.write(27);
+	Serial.print("[H");
+	if (floatMapSize > 0){
+		for (int i = 0; i < floatMapSize; i++){
+			Serial.print("Float value at index "); Serial.print(i); Serial.print(" is "); Serial.println(floatMap[i]);
+		}
+	}
+}

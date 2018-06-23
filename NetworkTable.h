@@ -44,7 +44,9 @@ class NetworkTable {
 		void sendBuffer(PacketSerial*, const unsigned char);
 		void processFloatPairs(unsigned char, const unsigned char*);
 		void setFloatMap(float[], const unsigned char);
-		
+
+		void printFloatMap();
+
 	private:
 		unsigned long time_lastps2packet;
 		byte* byteMap;
