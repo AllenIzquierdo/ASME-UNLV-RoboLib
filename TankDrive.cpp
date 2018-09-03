@@ -15,6 +15,12 @@ TankDrive::TankDrive(const Motor &leftMotor1, const Motor &leftMotor2, const Mot
 	this->rightMotor1 = &rightMotor1;
 	this->rightMotor2 = &rightMotor2;
 }
+TankDrive::TankDrive(const Motor &leftMotor1, const Motor &rightMotor1)
+{
+	this->leftMotor1 = &leftMotor1;
+	this->rightMotor1 = &rightMotor1;
+	doubleDriveEnable = false;
+}
 
 /** \brief Drives TankDrive with ps2 controller.
  *
@@ -32,19 +38,23 @@ void TankDrive::drive(float left, float right)
 	if(reverseLeft)
 	{
 		this->leftMotor1->setPower(-left);
-		this->leftMotor2->setPower(-left);
+		if(doubleDriveEnable)
+			this->leftMotor2->setPower(-left);
 	} else {
 		this->leftMotor1->setPower(left);
-		this->leftMotor2->setPower(left);
+		if(doubleDriveEnable)
+			this->leftMotor2->setPower(left);
 	}
 
 	if(reverseRight)
 	{
 		this->rightMotor1->setPower(-right);
-		this->rightMotor2->setPower(-right);
+		if(doubleDriveEnable)
+			this->rightMotor2->setPower(-right);
 	} else {
 		this->rightMotor1->setPower(right);
-		this->rightMotor2->setPower(right);
+		if(doubleDriveEnable)
+			this->rightMotor2->setPower(right);
 	}
 
 }
