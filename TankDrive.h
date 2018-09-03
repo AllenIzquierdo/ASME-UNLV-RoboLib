@@ -12,6 +12,7 @@
 class TankDrive {
 	public:
 		TankDrive(const Motor &leftMotor1, const Motor &leftMotor2, const Motor &rightMotor1, const Motor &rightMotor2);
+		TankDrive(const Motor &leftMotor1, const Motor &leftMotor2);
 		void drive(PS2X ps2x);
 		void drive(float left, float right);
 		void reverseLeftMotors(bool enable);
@@ -20,6 +21,7 @@ class TankDrive {
 	private:
 		bool reverseLeft;
 		bool reverseRight;
+		bool doubleDriveEnable = true; // Enable By Default, disabled by constructor.
 		Motor* leftMotor1;
 		Motor* leftMotor2;
 		Motor* rightMotor1;
