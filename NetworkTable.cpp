@@ -3,8 +3,10 @@
 #define NETWORK_CMD_FLUSHBYTES 1
 #define NETWORK_CMD_PS2DATA 2
 #define NETWORK_CMD_LOGBYTE 3
-#define NETWORK_CMD_LOGLONG 4
+#define NETWORK_CMD_LOGFLOAT 4
 #define NETWORK_CMD_LOGINT 5
+#define NETWORK_CMD_SEND_FLOATS 6
+#define NETWORK_CMD_SEND_INTEGRALS 7
 
 #define PACKET_COMMAND 2
 #define PACKET_HASHKEY 1
@@ -33,6 +35,8 @@ NetworkTable::NetworkTable(int byteSize, int floatSize)
  */
 void NetworkTable::processPacketFromSender(const PacketSerial& sender, const uint8_t* buffer, size_t size)
 {
+	Serial.println("Packet Recieved");
+	Serial.println(buffer[2]);
 	if(size < 3)
 	{
 		return;
@@ -40,10 +44,10 @@ void NetworkTable::processPacketFromSender(const PacketSerial& sender, const uin
 
 	switch(buffer[2])
 	{
-		case NETWORK_CMD_LOGLONG:
+		case NETWORK_CMD_LOGFLOAT:
 			Serial.println(millis());
 			Serial.println(",");
-			Serial.println(*((long*)(buffer + 3)));
+			Serial.println(*((float*)(buffer + 3)));
 			break;
 		case NETWORK_CMD_LOGBYTE:
 			Serial.println(millis());
@@ -74,7 +78,10 @@ void NetworkTable::processPacketFromSender(const PacketSerial& sender, const uin
 			ps2x->read_gamepad();
 			time_lastps2packet = millis();
 			break;
-
+		case NETWORK_CMD_SEND_FLOATS:
+			Serial.println("RECIEVED FLOAT COMMAND");
+			processFloatPairs(buffer[size-1], &buffer[3]);
+			break;
 	}
 
 }
@@ -188,11 +195,11 @@ void NetworkTable::logByte(byte value, PacketSerial* sender)
  * \param value - Long Datatype to print on driver station.
  * \warning Experimental.
  */
-void NetworkTable::logLong(long value, PacketSerial* sender)
+void NetworkTable::logFloat(float value, PacketSerial* sender)
 {
 	packetBuffer[0] = 3 + 4;
 	packetBuffer[1] = 0;
-	packetBuffer[2] = NETWORK_CMD_LOGLONG;
+	packetBuffer[2] = NETWORK_CMD_LOGFLOAT;
 	packetBuffer[3] = *((byte*)&value);
 	packetBuffer[4] = *(((byte*)&value) + 1);
 	packetBuffer[5] = *(((byte*)&value) + 2);
@@ -208,4 +215,101 @@ void NetworkTable::logInt(int value, PacketSerial* sender)
 	packetBuffer[3] = *((byte*)&value);
 	packetBuffer[4] = *(((byte*)&value) + 1);
 	sender->send(packetBuffer, packetBuffer[0]);
+}
+
+void NetworkTable::putBufferByte(const unsigned char & byte)
+{
+	packetBuffer[bufferIndex] = byte;
+	bufferIndex++;
+}
+
+
+void NetworkTable::putBufferBytes(const unsigned char numberOfBytes, const unsigned char * bytes)
+{
+	for(unsigned char i = 0; i < numberOfBytes; i++)
+	{
+		putBufferByte(*(bytes + i));
+	}
+}
+
+void NetworkTable::putBufferInteger(const int& integral)
+{
+	putBufferBytes(sizeof(int), (unsigned char*)(&integral));
+}
+
+void NetworkTable::putBufferFloat(const float& number)
+{
+	putBufferBytes(sizeof(float), (unsigned char*)(&number));
+}
+
+void NetworkTable::sendBuffer(PacketSerial* sender, const unsigned char networkCommand)
+{
+	putBufferByte(valuePairs);
+	packetBuffer[2] = networkCommand;
+	packetBuffer[0] = bufferIndex;
+	// Consider putting Hash Generator Module here.
+	sender->send(packetBuffer, packetBuffer[0]);
+	// Reset Counters
+	bufferIndex = 3;
+	valuePairs = 0;
+}
+
+void NetworkTable::putBufferPair(const unsigned char& index, const float& value)
+{
+	putBufferByte(index);
+	putBufferFloat(value);
+	valuePairs++;
+}
+
+void NetworkTable::putBufferPair(const unsigned char& index, const int& integral)
+{
+	putBufferByte(index);
+	putBufferInteger(integral);
+	valuePairs++;
+}
+
+void NetworkTable::putBufferPair(const unsigned char& index, const unsigned char& character)
+{
+	putBufferByte(index);
+	putBufferByte(character);
+	valuePairs++;
+}
+
+void NetworkTable::setFloatMap(float floatMap[], const unsigned char floatMapSize)
+{
+	this->floatMap = &(floatMap[0]);
+	this->floatMapSize = floatMapSize;
+}
+
+
+void NetworkTable::processFloatPairs(unsigned char numberOfPairs, const unsigned char* buffer)
+{
+	// Stop processing if float map is uninitialized.
+	if(!floatMapSize)
+		return;
+
+	// Process floats into float map.
+	for(unsigned char i = 0; i < numberOfPairs; i++)
+	{
+		unsigned char index = buffer[0 + (1 + sizeof(float))*i];
+		if(index > floatMapSize)
+			continue;
+		floatMap[index] = *((float*)(&buffer[1 + (sizeof(float) + 1)*i]));
+	}
+}
+
+
+
+void NetworkTable::printFloatMap()
+{
+	//clear putty
+	Serial.write(27);
+	Serial.print("[2J");
+	Serial.write(27);
+	Serial.print("[H");
+	if (floatMapSize > 0){
+		for (int i = 0; i < floatMapSize; i++){
+			Serial.print("Float value at index "); Serial.print(i); Serial.print(" is "); Serial.println(floatMap[i]);
+		}
+	}
 }
